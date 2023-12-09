@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 <AnchorPane fx:id="topPane"
             fx:controller="app.AppController"
             xmlns:fx="http://javafx.com/fxml/1">
-   <VBox fillWidth="true" alignment="CENTER"
-         AnchorPane.topAnchor="0"
-         AnchorPane.leftAnchor="0"
-         AnchorPane.rightAnchor="0"
-         AnchorPane.bottomAnchor="0">
-      <Label fx:id="label" text="Hello World"/>
-   </VBox>
+   <GridPane styleClass="grid-pane" alignment="CENTER" hgap="5" vgap="5"
+             AnchorPane.topAnchor="0"
+             AnchorPane.leftAnchor="0"
+             AnchorPane.rightAnchor="0"
+             AnchorPane.bottomAnchor="0">
+      <Label fx:id="xLabel" text="X"
+             GridPane.columnIndex="1" GridPane.rowIndex="0"
+             GridPane.fillHeight="true" GridPane.fillWidth="true"
+             GridPane.hgrow="NEVER" GridPane.vgrow="NEVER"/>
+      <Label fx:id="yLabel" text="Y" rotate="-90"
+             GridPane.columnIndex="0" GridPane.rowIndex="1"
+             GridPane.fillHeight="true" GridPane.fillWidth="true"
+             GridPane.hgrow="NEVER" GridPane.vgrow="NEVER"/>
+      <StackPane styleClass="stack-pane"
+              GridPane.columnIndex="1" GridPane.rowIndex="1"
+              GridPane.fillHeight="true" GridPane.fillWidth="true"
+              GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+         <Canvas fx:id="canvas" width="600" height="400"/>
+      </StackPane>
+   </GridPane>
 </AnchorPane>

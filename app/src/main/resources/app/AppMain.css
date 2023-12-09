@@ -1,11 +1,27 @@
 #topPane
 {
-  -fx-background: lightgray;
+  -fx-background: #333333;
+  -fx-padding: 0 10 10 10;
 }
 
-#label
+.label
 {
   -fx-text-fill: green;
   -fx-font-size: 2em;
   -fx-font-weight: bold;
+}
+
+#xLabel
+{
+    -fx-alignment: center-left;
+}
+
+#yLabel
+{
+    -fx-alignment: center-left;
+}
+
+#canvas
+{
+    -fx-background: black;
 }

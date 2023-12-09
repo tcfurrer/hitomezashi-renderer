@@ -84,7 +84,7 @@ tasks.register('jpackage', Exec) {
     def dependentProjectJarFiles = dependentProjectsWithJars.collect { it.jar.destinationDirectory.asFile.get() }
     def dependentProjectLibPaths = dependentProjectsWithJars.collect { it.repositories.collect { it.dirs.collect { it as String } } }.flatten().findAll { it.contains('main') && !it.contains('codeCoverageReport') }
     commandLine System.properties['java.home'] + '/bin/jpackage',
-            '--name', 'Template-JavaFX',
+            '--name', 'hitomezashi-renderer',
             '--temp', layout.buildDirectory.get().asFile.path+"/tmp/jpackage",
             '--module', 'app',
             '--module-path', System.properties['java.home'] + '/jmods' + ';' \
@@ -96,13 +96,13 @@ tasks.register('jpackage', Exec) {
             '--jlink-options', '--bind-services --strip-native-commands --strip-debug --no-man-pages --no-header-files',
             '--java-options', '-Xmx100m',
             '--dest', layout.buildDirectory.get().asFile.path+"/app-image",
-            '--description', 'Template JavaFX Project',
+            '--description', 'Hitomezashi Stitch Pattern Renderer',
             //'--about-url', 'TBD-url',
             //'--file-associations', 'TBD',
             '--vendor', 'TCF',
             '--copyright', 'TBD',
             //'--license-file', 'TBD',
-            //TBD: '--icon', 'template-javafx.ico',
+            //TBD: '--icon', 'hitomezashi-renderer.ico',
             '--type', 'msi', // value of 'app-image' here can be used for debugging purposes
             '--app-version', '1.0', //TBD: need to require cmdline property for this (instead of hardcoding value)
             '--win-per-user-install', //TBD: omit on linux

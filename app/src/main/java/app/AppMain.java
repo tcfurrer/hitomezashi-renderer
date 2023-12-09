@@ -13,10 +13,10 @@ public final class AppMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        primaryStage.setTitle("Template JavaFX Project");
+        primaryStage.setTitle("Hitomezashi Stitch Pattern Renderer");
 
         Parent root = FXMLLoader.load(getClass().getResource("AppMain.fxml"));
-        var scene = new Scene(root, 600, 400);
+        var scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("AppMain.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
