@@ -1,19 +1,21 @@
 package app;
 
 import javafx.fxml.FXML;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.util.*;
+import static javafx.scene.input.Clipboard.getSystemClipboard;
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
-import static javafx.scene.paint.Color.BLACK;
-import static javafx.scene.paint.Color.GREEN;
+import static javafx.scene.paint.Color.*;
 
 public final class AppController
 {
@@ -39,7 +41,7 @@ public final class AppController
     {
         // Step-size spinner
         //
-        var valueFactory = new IntegerSpinnerValueFactory(10,100,30, 1);
+        var valueFactory = new IntegerSpinnerValueFactory(10,100,10, 1);
         stepSize.setValueFactory(valueFactory);
 
         // Buttons
@@ -62,16 +64,16 @@ public final class AppController
             switch (e.getCode())
             {
                 case KeyCode.R -> randomize();
+                case KeyCode.C -> copy();
             }
         });
     }
 
     private void draw()
     {
-        // Clear entire canvas to background color
+        // Clear entire canvas
         //
-        gc.setFill(BLACK);
-        gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
 
         // Set canvas parameters for drawing
         //
@@ -126,5 +128,16 @@ public final class AppController
     private void randomize(List<ToggleButton> buttons)
     {
         buttons.forEach(button -> button.setSelected(random.nextBoolean()));
+    }
+
+    private void copy()
+    {
+        var parameters = new SnapshotParameters();
+        parameters.setFill(TRANSPARENT);
+        var image = canvas.snapshot(parameters, null);
+        var clipboard = getSystemClipboard();
+        var content = new ClipboardContent();
+        content.putImage(image);
+        clipboard.setContent(content);
     }
 }
