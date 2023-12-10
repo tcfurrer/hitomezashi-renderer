@@ -8,6 +8,7 @@ import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import static javafx.scene.paint.Color.BLACK;
+import static javafx.scene.paint.Color.GREEN;
 
 public final class AppController
 {
@@ -55,7 +56,47 @@ public final class AppController
         gc.setFill(BLACK);
         gc.fillRect(0,0,canvas.getWidth(),canvas.getHeight());
 
-        // Draw the pattern
+        // Set canvas parameters for drawing
         //
+        gc.setStroke(GREEN);
+        gc.setLineWidth(2);
+
+        // Pre-compute some common parameters
+        //
+        var numRows = yButtons.buttons().size();
+        var numColumns = xButtons.buttons().size();
+        var s = stepSize.getValue();
+
+        // Draw the vertical lines
+        //
+        {
+            for (int i = 0; i < numColumns; i++)
+            {
+                var x = i * s + s/2;
+                var jBegin = xButtons.buttons().get(i).isSelected() ? 0 : 1;
+                for (int j=jBegin; j < numRows; j+=2)
+                {
+                    var y1 = j*s;
+                    var y2 = y1+s;
+                    gc.strokeLine(x, y1, x, y2);
+                }
+            }
+        }
+
+        // Draw the horizontal lines
+        //
+        {
+            for (int i = 0; i < numRows; i++)
+            {
+                var y = i * s + s/2;
+                var jBegin = yButtons.buttons().get(i).isSelected() ? 0 : 1;
+                for (int j=jBegin; j < numColumns; j+=2)
+                {
+                    var x1 = j*s;
+                    var x2 = x1+s;
+                    gc.strokeLine(x1, y, x2, y);
+                }
+            }
+        }
     }
 }
