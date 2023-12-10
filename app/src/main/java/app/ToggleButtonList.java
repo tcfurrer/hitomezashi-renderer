@@ -6,10 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Subscription;
 import javafx.util.Callback;
 import java.util.*;
+import static javafx.scene.layout.Region.USE_PREF_SIZE;
 
 final class ToggleButtonList
 {
@@ -69,6 +71,22 @@ final class ToggleButtonList
         for (int i=0; i<numButtons; i++)
         {
             var button = new ToggleButton();
+            button.setMinSize(USE_PREF_SIZE,USE_PREF_SIZE);
+            button.setMaxSize(USE_PREF_SIZE,USE_PREF_SIZE);
+            switch (pane)
+            {
+                case VBox __ignored ->
+                {
+                    button.prefHeightProperty().bind(stepSize);
+                    button.setPrefWidth(30);
+                }
+                case HBox __ignored ->
+                {
+                    button.prefWidthProperty().bind(stepSize);
+                    button.setPrefHeight(30);
+                }
+                default -> throw new UnsupportedOperationException();
+            }
             buttons.add(button);
         }
         pane.getChildren().addAll(buttons);
@@ -82,7 +100,6 @@ final class ToggleButtonList
             case HBox hBox -> hBox.widthProperty().subscribe(this::updateButtons);
             default -> throw new UnsupportedOperationException();
         };
-
     }
 
     private void removeButtons(Pane pane)
