@@ -10,10 +10,8 @@ import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import java.util.*;
 import static javafx.scene.input.Clipboard.getSystemClipboard;
 import static javafx.scene.input.KeyEvent.KEY_PRESSED;
@@ -21,15 +19,21 @@ import static javafx.scene.paint.Color.*;
 
 public final class AppController
 {
+    private static final int MIN_STEP_SIZE = 10;
+    private static final int DEFAULT_STEP_SIZE = 10;
+    private static final int MAX_STEP_SIZE = 100;
+    private static final int LINE_WIDTH = 2;
+    private static final Color LINE_COLOR = GREEN;
+
     @FXML private Pane topPane;
     @FXML private Spinner<Integer> stepSize;
-    @FXML private StackPane canvasPane;
-    @FXML private Canvas canvas;
-    @FXML private VBox vBox;
-    @FXML private HBox hBox;
+    @FXML private CanvasPane canvasPane;
+    @FXML private VBox buttonsVBox;
+    @FXML private HBox buttonsHBox;
 
     private final ToggleButtonList xButtons, yButtons;
     private final Random random;
+    private Canvas canvas;
     private GraphicsContext gc;
 
     public AppController()
@@ -42,25 +46,26 @@ public final class AppController
     @FXML
     void initialize()
     {
+        canvas = canvasPane.getCanvas();
+
         // Step-size spinner
         //
-        var valueFactory = new IntegerSpinnerValueFactory(10,100,10, 1);
+        var valueFactory = new IntegerSpinnerValueFactory(MIN_STEP_SIZE,MAX_STEP_SIZE,DEFAULT_STEP_SIZE,1);
         stepSize.setValueFactory(valueFactory);
 
         // Buttons
         //
-        xButtons.parentProperty().set(hBox);
-        yButtons.parentProperty().set(vBox);
+        xButtons.parentProperty().set(buttonsHBox);
+        yButtons.parentProperty().set(buttonsVBox);
         xButtons.stepSizeProperty().bind(stepSize.valueProperty());
         yButtons.stepSizeProperty().bind(stepSize.valueProperty());
 
         // Canvas
         //
         gc = canvas.getGraphicsContext2D();
-        canvas.widthProperty().bind(canvasPane.widthProperty());
-        canvas.heightProperty().bind(canvasPane.heightProperty());
         canvas.widthProperty().subscribe(() -> Platform.runLater(this::draw));
         canvas.heightProperty().subscribe(() -> Platform.runLater(this::draw));
+        canvas.setManaged(false);
         Platform.runLater(this::draw);
         xButtons.buttons().subscribe(this::draw);
         yButtons.buttons().subscribe(this::draw);
@@ -86,8 +91,8 @@ public final class AppController
 
         // Set canvas parameters for drawing
         //
-        gc.setStroke(GREEN);
-        gc.setLineWidth(2);
+        gc.setStroke(LINE_COLOR);
+        gc.setLineWidth(LINE_WIDTH);
 
         // Pre-compute some common parameters
         //

@@ -1,44 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane fx:id="topPane"
-            minWidth="100" minHeight="100"
-            prefWidth="800" prefHeight="600"
-            maxWidth="Infinity" maxHeight="Infinity"
-            fx:controller="app.AppController"
-            xmlns:fx="http://javafx.com/fxml/1">
-   <GridPane styleClass="grid-pane" alignment="CENTER" hgap="5" vgap="5"
-             AnchorPane.topAnchor="0"
-             AnchorPane.leftAnchor="0"
-             AnchorPane.rightAnchor="0"
-             AnchorPane.bottomAnchor="0">
-      <Spinner fx:id="stepSize"
-               GridPane.columnIndex="0" GridPane.rowIndex="0"
-               GridPane.fillHeight="true" GridPane.fillWidth="true"
-               GridPane.hgrow="NEVER" GridPane.vgrow="NEVER"/>
-      <HBox fx:id="hBox"
-              GridPane.columnIndex="1" GridPane.rowIndex="0"
-            GridPane.fillHeight="true" GridPane.fillWidth="true"
-            GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
-         <!-- code will dynamically add buttons here -->
-      </HBox>
-      <VBox fx:id="vBox"
-            GridPane.columnIndex="0" GridPane.rowIndex="1"
-            GridPane.fillHeight="true" GridPane.fillWidth="true"
-            GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+<?import app.CanvasPane?>
+<HBox fx:id="topPane"
+      maxWidth="Infinity" maxHeight="Infinity"
+      fx:controller="app.AppController"
+      xmlns:fx="http://javafx.com/fxml/1">
+   <VBox fx:id="leftVBox">
+      <Spinner fx:id="stepSize" minWidth="-Infinity"/>
+      <VBox fx:id="buttonsVBox" VBox.vgrow="ALWAYS">
          <!-- code will dynamically add buttons here -->
       </VBox>
-      <StackPane fx:id="canvasPane" styleClass="stack-pane"
-              GridPane.columnIndex="1" GridPane.rowIndex="1"
-              GridPane.fillHeight="true" GridPane.fillWidth="true"
-              GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-         <Canvas fx:id="canvas"/>
-      </StackPane>
-   </GridPane>
-</AnchorPane>
+   </VBox>
+   <VBox fx:id="rightVBox" HBox.hgrow="ALWAYS">
+      <HBox fx:id="buttonsHBox">
+         <!-- code will dynamically add buttons here -->
+      </HBox>
+      <CanvasPane fx:id="canvasPane" VBox.vgrow="ALWAYS"/>
+   </VBox>
+</HBox>

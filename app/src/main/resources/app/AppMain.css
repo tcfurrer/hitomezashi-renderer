@@ -2,13 +2,10 @@
 {
   -fx-background: #333333;
   -fx-padding: 0 10 10 10;
-}
-
-.label
-{
-  -fx-text-fill: green;
-  -fx-font-size: 2em;
-  -fx-font-weight: bold;
+  -fx-min-width: 100;
+  -fx-min-height: 100;
+  -fx-pref-width: 800;
+  -fx-pref-height: 600;
 }
 
 .spinner
@@ -16,17 +13,25 @@
   -fx-pref-width: 5em;
 }
 
-#xLabel
+#leftVBox
 {
-  -fx-alignment: center-left;
+  -fx-spacing: 5;
+  -fx-alignment: top-right;
 }
 
-#yLabel
+#rightVBox
 {
-  -fx-alignment: center-left;
+  -fx-spacing: 5;
 }
 
-#canvas
+#buttonsVBox
 {
-  -fx-background: black;
+  -fx-pref-width: 2em;
+  -fx-alignment: top-right;
+}
+
+#buttonsHBox
+{
+  -fx-pref-height: 2em;
+  -fx-alignment: bottom-left;
 }
