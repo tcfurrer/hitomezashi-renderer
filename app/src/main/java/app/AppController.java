@@ -5,25 +5,33 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import java.util.*;
+import static javafx.scene.input.KeyEvent.KEY_PRESSED;
 import static javafx.scene.paint.Color.BLACK;
 import static javafx.scene.paint.Color.GREEN;
 
 public final class AppController
 {
+    @FXML private Pane topPane;
     @FXML private Spinner<Integer> stepSize;
     @FXML private Canvas canvas;
     @FXML private VBox vBox;
     @FXML private HBox hBox;
 
     private final ToggleButtonList xButtons, yButtons;
+    private final Random random;
     private GraphicsContext gc;
 
     public AppController()
     {
         xButtons = new ToggleButtonList();
         yButtons = new ToggleButtonList();
+        random = new Random(23948);
     }
 
     @FXML
@@ -47,6 +55,15 @@ public final class AppController
         draw();
         xButtons.buttons().subscribe(this::draw);
         yButtons.buttons().subscribe(this::draw);
+
+        // HotKeys
+        //
+        topPane.addEventHandler(KEY_PRESSED, e -> {
+            switch (e.getCode())
+            {
+                case KeyCode.R -> randomize();
+            }
+        });
     }
 
     private void draw()
@@ -72,7 +89,7 @@ public final class AppController
         {
             for (int i = 0; i < numColumns; i++)
             {
-                var x = i * s + s/2;
+                var x = i * s;
                 var jBegin = xButtons.buttons().get(i).isSelected() ? 0 : 1;
                 for (int j=jBegin; j < numRows; j+=2)
                 {
@@ -88,7 +105,7 @@ public final class AppController
         {
             for (int i = 0; i < numRows; i++)
             {
-                var y = i * s + s/2;
+                var y = i * s;
                 var jBegin = yButtons.buttons().get(i).isSelected() ? 0 : 1;
                 for (int j=jBegin; j < numColumns; j+=2)
                 {
@@ -98,5 +115,16 @@ public final class AppController
                 }
             }
         }
+    }
+
+    private void randomize()
+    {
+        randomize(xButtons.buttons());
+        randomize(yButtons.buttons());
+    }
+
+    private void randomize(List<ToggleButton> buttons)
+    {
+        buttons.forEach(button -> button.setSelected(random.nextBoolean()));
     }
 }
