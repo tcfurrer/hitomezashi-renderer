@@ -7,6 +7,7 @@ gradle-app.setting
 **/build/
 !src/**/build
 out
+**/dist
 
 # Auto-downloaded jmods
 jmods

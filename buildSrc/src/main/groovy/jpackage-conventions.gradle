@@ -28,12 +28,12 @@ tasks.register('downloadJMods')
 tasks.register('cleanJlink', Delete) {
     description 'Cleans the app image created by jlink task'
     doFirst {
-        if (file(layout.buildDirectory.get().asFile.path + "/image").exists()) {
+        if (file(rootDir.path+"/dist/image").exists()) {
             ant.attrib(readonly: false) {
-                fileset(dir: layout.buildDirectory.get().asFile.path + "/image")
+                fileset(dir: rootDir.path+"/dist/image")
             }
         }
-        delete layout.buildDirectory.get().asFile.path + "/image"
+        delete rootDir.path+"/dist/image"
     }
 }
 clean.dependsOn cleanJlink
@@ -64,7 +64,7 @@ tasks.register('jlink', Exec) {
 tasks.register('cleanJpackage', Delete) {
     description 'Cleans the app image created by jpackage task'
     doFirst {
-        delete layout.buildDirectory.get().asFile.path + "/app-image"
+        delete rootDir.path + "/dist/image"
         if (file(layout.buildDirectory.get().asFile.path + "/tmp/jpackage").exists()) {
             ant.attrib(readonly: false) {
                 fileset(dir: layout.buildDirectory.get().asFile.path + "/tmp/jpackage")
@@ -95,7 +95,7 @@ tasks.register('jpackage', Exec) {
             '--input', jar.destinationDirectory.asFile.get() as String,
             '--jlink-options', '--bind-services --strip-native-commands --strip-debug --no-man-pages --no-header-files',
             '--java-options', '-Xmx100m',
-            '--dest', layout.buildDirectory.get().asFile.path+"/app-image",
+            '--dest', rootDir.path+"/dist",
             '--description', 'Hitomezashi Stitch Pattern Renderer',
             //'--about-url', 'TBD-url',
             //'--file-associations', 'TBD',
