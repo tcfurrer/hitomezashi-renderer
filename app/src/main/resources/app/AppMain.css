@@ -11,17 +11,22 @@
   -fx-font-weight: bold;
 }
 
+.spinner
+{
+  -fx-pref-width: 5em;
+}
+
 #xLabel
 {
-    -fx-alignment: center-left;
+  -fx-alignment: center-left;
 }
 
 #yLabel
 {
-    -fx-alignment: center-left;
+  -fx-alignment: center-left;
 }
 
 #canvas
 {
-    -fx-background: black;
+  -fx-background: black;
 }

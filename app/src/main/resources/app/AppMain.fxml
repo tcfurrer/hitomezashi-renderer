@@ -3,8 +3,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <AnchorPane fx:id="topPane"
             fx:controller="app.AppController"
             xmlns:fx="http://javafx.com/fxml/1">
@@ -13,14 +15,19 @@
              AnchorPane.leftAnchor="0"
              AnchorPane.rightAnchor="0"
              AnchorPane.bottomAnchor="0">
-      <Label fx:id="xLabel" text="X"
-             GridPane.columnIndex="1" GridPane.rowIndex="0"
-             GridPane.fillHeight="true" GridPane.fillWidth="true"
-             GridPane.hgrow="NEVER" GridPane.vgrow="NEVER"/>
-      <Label fx:id="yLabel" text="Y" rotate="-90"
-             GridPane.columnIndex="0" GridPane.rowIndex="1"
-             GridPane.fillHeight="true" GridPane.fillWidth="true"
-             GridPane.hgrow="NEVER" GridPane.vgrow="NEVER"/>
+      <Spinner fx:id="stepSize"/>
+      <HBox fx:id="hBox"
+              GridPane.columnIndex="1" GridPane.rowIndex="0"
+            GridPane.fillHeight="true" GridPane.fillWidth="true"
+            GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+         <!-- code will dynamically add buttons here -->
+      </HBox>
+      <VBox fx:id="vBox"
+            GridPane.columnIndex="0" GridPane.rowIndex="1"
+            GridPane.fillHeight="true" GridPane.fillWidth="true"
+            GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+         <!-- code will dynamically add buttons here -->
+      </VBox>
       <StackPane styleClass="stack-pane"
               GridPane.columnIndex="1" GridPane.rowIndex="1"
               GridPane.fillHeight="true" GridPane.fillWidth="true"
