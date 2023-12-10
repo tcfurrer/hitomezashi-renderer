@@ -1,5 +1,6 @@
 package app;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
@@ -11,6 +12,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import java.util.*;
 import static javafx.scene.input.Clipboard.getSystemClipboard;
@@ -21,6 +23,7 @@ public final class AppController
 {
     @FXML private Pane topPane;
     @FXML private Spinner<Integer> stepSize;
+    @FXML private StackPane canvasPane;
     @FXML private Canvas canvas;
     @FXML private VBox vBox;
     @FXML private HBox hBox;
@@ -54,7 +57,11 @@ public final class AppController
         // Canvas
         //
         gc = canvas.getGraphicsContext2D();
-        draw();
+        canvas.widthProperty().bind(canvasPane.widthProperty());
+        canvas.heightProperty().bind(canvasPane.heightProperty());
+        canvas.widthProperty().subscribe(() -> Platform.runLater(this::draw));
+        canvas.heightProperty().subscribe(() -> Platform.runLater(this::draw));
+        Platform.runLater(this::draw);
         xButtons.buttons().subscribe(this::draw);
         yButtons.buttons().subscribe(this::draw);
 
@@ -71,6 +78,8 @@ public final class AppController
 
     private void draw()
     {
+        if (canvas.getWidth() == 0 || canvas.getHeight() == 0) return;
+
         // Clear entire canvas
         //
         gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());

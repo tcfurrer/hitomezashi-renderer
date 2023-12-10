@@ -8,6 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <AnchorPane fx:id="topPane"
+            minWidth="100" minHeight="100"
+            prefWidth="800" prefHeight="600"
+            maxWidth="Infinity" maxHeight="Infinity"
             fx:controller="app.AppController"
             xmlns:fx="http://javafx.com/fxml/1">
    <GridPane styleClass="grid-pane" alignment="CENTER" hgap="5" vgap="5"
@@ -15,7 +18,10 @@
              AnchorPane.leftAnchor="0"
              AnchorPane.rightAnchor="0"
              AnchorPane.bottomAnchor="0">
-      <Spinner fx:id="stepSize"/>
+      <Spinner fx:id="stepSize"
+               GridPane.columnIndex="0" GridPane.rowIndex="0"
+               GridPane.fillHeight="true" GridPane.fillWidth="true"
+               GridPane.hgrow="NEVER" GridPane.vgrow="NEVER"/>
       <HBox fx:id="hBox"
               GridPane.columnIndex="1" GridPane.rowIndex="0"
             GridPane.fillHeight="true" GridPane.fillWidth="true"
@@ -28,11 +34,11 @@
             GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
          <!-- code will dynamically add buttons here -->
       </VBox>
-      <StackPane styleClass="stack-pane"
+      <StackPane fx:id="canvasPane" styleClass="stack-pane"
               GridPane.columnIndex="1" GridPane.rowIndex="1"
               GridPane.fillHeight="true" GridPane.fillWidth="true"
               GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-         <Canvas fx:id="canvas" width="800" height="600"/>
+         <Canvas fx:id="canvas"/>
       </StackPane>
    </GridPane>
 </AnchorPane>
